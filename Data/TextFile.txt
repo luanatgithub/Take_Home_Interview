@@ -1,0 +1,4 @@
+﻿ 
+ Set file location in Helper/LoadData.cs
+
+ private string filepath = "C:\\Data\\accounting.csv";

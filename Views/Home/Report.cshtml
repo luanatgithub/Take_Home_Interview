@@ -1,0 +1,107 @@
+﻿@model IEnumerable<ReadExcelWebMVC.Models.RecordIndividualDetails>
+
+@{
+    ViewData["Title"] = "Report";
+}
+
+<h1>Soldiers' payment Report</h1>
+
+<div class="row col-md-8">
+
+    <div class="d-block p-2 bg-primary text-white text-center col-md-12">SOLDIERS ARE STILL OWNED MONEY</div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.PaymentAmount)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.ObligationAmount)
+                </th>
+                <th scope="col">Owned Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (item.ObligationAmount > item.PaymentAmount)
+                {
+                    <tr>
+                        <th scope="row">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </th>
+                        <td class="text-right">
+                            @Html.DisplayFor(modelItem => item.PaymentAmount)
+                        </td>
+                        <td class="text-right">
+                            @Html.DisplayFor(modelItem => item.ObligationAmount)
+                        </td>
+                        <td class="text-right font-weight-bold">
+                            @{
+                                var result = item.ObligationAmount - item.PaymentAmount;
+
+                            }
+                            @string.Format("{0:C}", @result)
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    </div>
+<br /><br />
+    <div class="row col-md-8">
+        <div class="d-block p-2 bg-primary text-white text-center col-md-12">SOLDIERS HAVE BEEN OVERPAID</div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.PaymentAmount)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.ObligationAmount)
+                    </th>
+                    <th scope="col">
+                        Overpaid Amount
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.ObligationAmount < item.PaymentAmount)
+                    {
+                        <tr>
+                            <th scope="row">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </th>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.PaymentAmount)
+                            </td>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.ObligationAmount)
+                            </td>
+                            <td class="text-right font-weight-bold">
+                                @{
+                                    var result = item.PaymentAmount - item.ObligationAmount;
+
+                                }
+                                @string.Format("{0:C}", @result)
+
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
